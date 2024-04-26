@@ -1,4 +1,3 @@
-Sure, here's a step-by-step guide to setting up AWS services for your scenario:
 
 1. AWS CLI Installation:
    - Install the AWS Command Line Interface (CLI) on your local machine.
