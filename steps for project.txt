@@ -1,0 +1,41 @@
+Sure, here's a step-by-step guide to setting up AWS services for your scenario:
+
+1. AWS CLI Installation:
+   - Install the AWS Command Line Interface (CLI) on your local machine.
+   - Configure the CLI with your IAM user's credentials (access key and secret key).
+
+2. IAM Setup:
+   - In IAM, create a new user with programmatic access.
+   - Attach policies granting access to DynamoDB (e.g., `AmazonDynamoDBFullAccess`) and Kinesis (e.g., `AmazonKinesisFullAccess`).
+
+3. DynamoDB Table Creation:
+   - Use the AWS CLI or AWS Console to create a DynamoDB table.
+   - Ensure to enable DynamoDB Streams for the table.
+
+4. Kinesis Data Stream:
+   - Create a Kinesis Data Stream.
+   - Think of shards as distributed partitions for your data stream.
+
+5. EventBridge Configuration:
+   - Set up EventBridge rules to pipe events from a source (e.g., DynamoDB stream) to a target (e.g., Kinesis Data Stream).
+   - Ensure the partition key is set appropriately (e.g., eventID).
+
+6. Permissions for EventBridge:
+   - Add permissions to the EventBridge service role to access Kinesis and DynamoDB (e.g., `AmazonKinesisFullAccess`, `AmazonDynamoDBFullAccess`).
+
+7. S3 Bucket Creation:
+   - Create an S3 bucket to store data from Kinesis Firehose.
+
+8. Kinesis Firehose Delivery Stream:
+   - Create a Kinesis Firehose delivery stream.
+   - Enable AWS Lambda transformation if data transformation is needed, otherwise, direct the data to S3.
+
+9. CloudWatch Setup:
+   - Set up CloudWatch for monitoring and logging.
+
+10. Amazon Athena Configuration:
+    - Create a crawler to define the schema for data stored in S3.
+    - Create a classifier to handle JSON format data.
+    - Define the structure of the JSON data using paths like `$.order_id`, `$.product`, etc.
+
+Ensure that each step is performed accurately and securely. This setup will allow you to process near real-time data from DynamoDB to Kinesis Firehose, with transformation capabilities and efficient data querying using Amazon Athena.
